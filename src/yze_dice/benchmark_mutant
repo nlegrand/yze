@@ -29,7 +29,7 @@ results = {
 }
 
 print(f'Throwing dice {args.throw} times !')
-for i in range(args.throw):
+for i in range(int(args.throw)):
     d = DicePoolMutant(attr=int(args.attribute), skill=int(args.skill), gear=int(args.gear))
     res = d.throw()
     pushed_res = d.push()
@@ -57,7 +57,7 @@ for i in range(args.throw):
     gear_botched = [x for x in d.pushed_res['gear'] if x == 1]
     if len(gear_botched) > 0:
         results['atleast_one_gear_botch'] += 1
-        if len(gear_botched) in results['gear_botched']:
+        if len(gear_botched) not in results['gear_botched']:
             results['gear_botched'][len(gear_botched)] = 1
         else:
             results['gear_botched'][len(gear_botched)] += 1
