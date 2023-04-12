@@ -62,10 +62,10 @@ for i in range(args.throw):
         else:
             results['gear_botched'][len(gear_botched)] += 1
 
-print (f'    au moins 1 succès : {results["atleast_one"]}')
-print (f'    au moins 1 succès poussé : {results["atleast_one_pushed"]}')
-print (f'    au moins 1 dommage d’attribut : {results["atleast_one_attr_botch"]}')
-print (f'    au moins 1 dommage de matériel : {results["atleast_one_gear_botch"]}')
+print (f'    at least one success : {results["atleast_one"]}')
+print (f'    at least one pushed success : {results["atleast_one_pushed"]}')
+print (f'    at least one damage to attribute : {results["atleast_one_attr_botch"]}')
+print (f'    at least one damage to gear : {results["atleast_one_gear_botch"]}')
 
 
 pp = pprint.PrettyPrinter(indent=4)
