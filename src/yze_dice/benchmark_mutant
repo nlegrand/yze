@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
+
 from yze_dice import DicePoolMutant
 import argparse
 import pprint
 
 parser = argparse.ArgumentParser(
-                    prog='test yze',
+                    prog='benchmark_mutant',
                     description='make a lot of YZE throws to get some chances',
                     epilog='')
 
