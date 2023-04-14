@@ -5,7 +5,7 @@ Year Zero Engine dice throwing.
 - [X] Mutant: Year Zero
 - [X] Forbidden Lands
 - [ ] Twilight 2000
-- [ ] Alien
+- [X] Alien
 - [ ] Blade Runner
 
 * Example
@@ -28,6 +28,12 @@ Type "help", "copyright", "credits" or "license" for more information.
 {'attr': [2, 2], 'skill': [2], 'gear': [], 'artefact': (8, 2)}
 >>> fbl.push()
 {'attr': [2, 6], 'skill': [3], 'gear': [], 'artefact': (8, 2)}
+>>> from yze_dice import AlienDicePool
+>>> alien = AlienDicePool(pool=4, stress=1)
+>>> alien.throw()
+{'pool': [4, 1, 6, 1], 'stress': [2]}
+>>> alien.push()
+{'pool': [1, 3, 6, 2], 'stress': [1, 1]}
 #+end_src
 
 * Benchmark

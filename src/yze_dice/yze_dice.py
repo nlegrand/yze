@@ -126,6 +126,46 @@ class FBLDicePool:
                 self.pushed_res['artefact'] = artefact_dice.throw()
             else:
                 self.pushed_res['artefact'] = self.result['artefact']
-            
+
+        self.pushed = True
+        return self.pushed_res
+
+
+class AlienDicePool:
+
+    def __init__(self, pool=1, stress=0):
+        self.pool = pool
+        self.stress = stress
+        self.thrown = False
+        self.pushed = False
+        self.result = {'pool': [], 'stress': []}
+        self.pushed_res = {'pool': [], 'stress': []}
+
+    def throw(self):
+        if self.thrown:
+            return self.result
+        dice = Dice()
+        for n in range(self.pool):
+            self.result['pool'].append(dice.throw())
+        for n in range(self.stress):
+            self.result['stress'].append(dice.throw())
+        self.thrown = True
+        return self.result
+
+    def push(self):
+        if self.pushed:
+            return self.pushed_res
+        dice = Dice()
+        for r in self.result['pool']:
+            if r == 6:
+                self.pushed_res['pool'].append(r)
+            else:
+                self.pushed_res['pool'].append(dice.throw())
+        for r in self.result['stress'] + [2]:
+            if r == 6:
+                self.pushed_res['stress'].append(r)
+            else:
+                self.pushed_res['stress'].append(dice.throw())
+
         self.pushed = True
         return self.pushed_res
