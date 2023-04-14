@@ -3,7 +3,7 @@ Year Zero Engine dice throwing.
 
 * System supported:
 - [X] Mutant: Year Zero
-- [ ] Forbidden Lands
+- [X] Forbidden Lands
 - [ ] Twilight 2000
 - [ ] Alien
 - [ ] Blade Runner
@@ -22,6 +22,12 @@ Type "help", "copyright", "credits" or "license" for more information.
 {'attr': [5, 6, 6], 'skill': [1, 4], 'gear': [6, 2]}
 >>> d.push()
 {'attr': [2, 6, 6], 'skill': [5, 2], 'gear': [6, 1]}
+>>> from yze_dice import DicePoolFBL
+>>> fbl = DicePoolFBL(attr=2, skill=1, artefact=12)
+>>> fbl.throw()
+{'attr': [2, 2], 'skill': [2], 'gear': [], 'artefact': (8, 2)}
+>>> fbl.push()
+{'attr': [2, 6], 'skill': [3], 'gear': [], 'artefact': (8, 2)}
 #+end_src
 
 * Benchmark
