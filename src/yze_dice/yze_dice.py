@@ -1,5 +1,6 @@
 from random import randrange
 
+
 class Dice:
     def __init__(self, size=6):
         dice_sizes = [6, 8, 10, 12]
@@ -7,12 +8,14 @@ class Dice:
         if len(d) != 1:
             raise ValueError(f"Dice size should be one of 6, 8, 10, 12. {size} was provided.")
         self.size = size
+
     def throw(self):
-        return randrange(1, self.size +1)
+        return randrange(1, self.size + 1)
+
 
 class ArtefactDice(Dice):
     def throw(self):
-        res = randrange(1, self.size +1)
+        res = randrange(1, self.size + 1)
         successes = 0
         if 6 <= res <= 7:
             successes = 1
@@ -23,7 +26,8 @@ class ArtefactDice(Dice):
         elif res == 12:
             successes = 4
         return (res, successes)
-        
+
+
 class DicePoolMutant:
     def __init__(self, attr=1, skill=0, gear=0):
         self.attr = attr
@@ -33,7 +37,7 @@ class DicePoolMutant:
         self.pushed = False
         self.result = {'attr': [], 'skill': [], 'gear': []}
         self.pushed_res = {'attr': [], 'skill': [], 'gear': []}
-        
+
     def throw(self):
         if self.thrown:
             return self.result
@@ -46,6 +50,7 @@ class DicePoolMutant:
             self.result['gear'].append(dice.throw())
         self.thrown = True
         return self.result
+
     def push(self):
         if self.pushed:
             return self.pushed_res
@@ -68,8 +73,9 @@ class DicePoolMutant:
         self.pushed = True
         return self.pushed_res
 
+
 class DicePoolFBL:
-    def __init__(self, attr=1, skill=0, gear=0,artefact=None):
+    def __init__(self, attr=1, skill=0, gear=0, artefact=None):
         self.attr = attr
         self.skill = skill
         self.gear = gear
@@ -78,7 +84,7 @@ class DicePoolFBL:
         self.pushed = False
         self.result = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
         self.pushed_res = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
-        
+
     def throw(self):
         if self.thrown:
             return self.result
@@ -94,6 +100,7 @@ class DicePoolFBL:
             self.result['artefact'] = artefact_dice.throw()
         self.thrown = True
         return self.result
+
     def push(self):
         if self.pushed:
             return self.pushed_res
