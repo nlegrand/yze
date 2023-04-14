@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from yze_dice import DicePoolMutant
+from yze_dice import MutantDicePool
 import argparse
 import pprint
 
@@ -30,7 +30,7 @@ results = {
 
 print(f'Throwing dice {args.throw} times !')
 for i in range(int(args.throw)):
-    d = DicePoolMutant(attr=int(args.attribute), skill=int(args.skill), gear=int(args.gear))
+    d = MutantDicePool(attr=int(args.attribute), skill=int(args.skill), gear=int(args.gear))
     res = d.throw()
     pushed_res = d.push()
     successes = [x for x in d.result['attr'] + d.result['skill'] + d.result['gear'] if x == 6]

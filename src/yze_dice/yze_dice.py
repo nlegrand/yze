@@ -28,7 +28,7 @@ class ArtefactDice(Dice):
         return (res, successes)
 
 
-class DicePoolMutant:
+class MutantDicePool:
     def __init__(self, attr=1, skill=0, gear=0):
         self.attr = attr
         self.skill = skill
@@ -74,7 +74,7 @@ class DicePoolMutant:
         return self.pushed_res
 
 
-class DicePoolFBL:
+class FBLDicePool:
     def __init__(self, attr=1, skill=0, gear=0, artefact=None):
         self.attr = attr
         self.skill = skill
