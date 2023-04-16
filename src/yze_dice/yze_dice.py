@@ -27,6 +27,7 @@ class ArtefactDice(Dice):
             successes = 4
         return (res, successes)
 
+
 class StepDice(Dice):
     def throw(self):
         res = randrange(1, self.size + 1)
@@ -36,6 +37,7 @@ class StepDice(Dice):
         elif 10 <= res <= 12:
             successes = 2
         return (res, successes)
+
 
 class MutantDicePool:
     def __init__(self, attr=1, skill=0, gear=0):
