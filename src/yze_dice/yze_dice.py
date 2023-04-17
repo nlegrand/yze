@@ -16,7 +16,12 @@ from random import randrange
 
 
 class Dice:
+    """Basic class for YZE dice
+    """
     def __init__(self, size=6):
+        """Check size of the dice, 6 by default or 8, 10, 12. Return a dice
+        object with a size attribute.
+        """
         dice_sizes = [6, 8, 10, 12]
         d = [x for x in dice_sizes if x == size]
         if len(d) != 1:
@@ -24,11 +29,21 @@ class Dice:
         self.size = size
 
     def throw(self):
+        """Generate a pseudo-random number in the range of the Dice Object. It
+        returns an int.
+
+        """
         return randrange(1, self.size + 1)
 
 
 class ArtefactDice(Dice):
+    """Artefact dice are used in Forbidden Lands RPG.
+    """
     def throw(self):
+        """Artefact dice succeeds on 6+. You have more successes with higher
+        result. Returns a tuple with the results and the successes
+        obtained. The success rate is different from Step dice.
+        """
         res = randrange(1, self.size + 1)
         successes = 0
         if 6 <= res <= 7:
@@ -43,7 +58,14 @@ class ArtefactDice(Dice):
 
 
 class StepDice(Dice):
+    """Step dice is the dice system used un Twilight 2000 and Blade Runner
+    RPG.
+    """
     def throw(self):
+        """Step dice suceeds on 6+. You have more successes with higher
+        result. Returns a tuple with the results and the successes
+        obtained. The success rate is different from ArtefactDice
+        """
         res = randrange(1, self.size + 1)
         successes = 0
         if 6 <= res <= 9:
@@ -54,7 +76,13 @@ class StepDice(Dice):
 
 
 class MutantDicePool:
+    """Emulate the dice pool found in Mutant: Year Zero. The
+    MutantDicePool object can only make one throw and then one
+    push. To make another throw, you’ll need to create a new object.
+    """
     def __init__(self, attr=1, skill=0, gear=0):
+        """
+        """
         self.attr = attr
         self.skill = skill
         self.gear = gear
