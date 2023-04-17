@@ -1,15 +1,15 @@
 The main goal of this Python library is to propose an object to emulate
 Year Zero Engine dice throwing.
 
-* System supported:
+# System supported:
 - [X] Mutant: Year Zero
 - [X] Forbidden Lands
 - [ ] Twilight 2000
 - [X] Alien
 - [ ] Blade Runner
 
-* Example
-#+begin_src shell
+# Example
+```
 git clone https://github.com/nlegrand/yze.git
 cd yze/src/yze_dice
 python3
@@ -34,13 +34,13 @@ Type "help", "copyright", "credits" or "license" for more information.
 {'pool': [4, 1, 6, 1], 'stress': [2]}
 >>> alien.push()
 {'pool': [1, 3, 6, 2], 'stress': [1, 1]}
-#+end_src
+```
 
-* Benchmark
+# Benchmark
 You can also benchmark dice throw to see what are your chances to get
 some successes or damage.
 
-#+begin_src shell
+```
 ./benchmark_mutant --throw 10000 --attribute 4 --skill 2 --gear 1
 Throwing dice 10000 times !
     at least one success : 7243
@@ -55,6 +55,6 @@ Throwing dice 10000 times !
     'gear_botched': {1: 2767},
     'pushed_successes': {1: 2666, 2: 3304, 3: 2070, 4: 843, 5: 194, 6: 19},
     'successes': {1: 3895, 2: 2424, 3: 757, 4: 154, 5: 13}}
-#+end_src
+```
 
 Yes I know, I can improve this output :). I'll do it!
