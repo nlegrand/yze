@@ -1,0 +1,18 @@
+[project]
+name = "yze"
+version = "0.0.1"
+authors = [
+  { name="Nicolas Legrand", email="nicolas.legrand@gmail.com" },
+]
+description = "A small package to handle YZE games mechanics"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: ISC License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/nlegrand/yze"
+"Bug Tracker" = "https://github.com/nlegrand/yze/issues"
