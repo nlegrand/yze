@@ -81,7 +81,8 @@ class MutantDicePool:
     push. To make another throw, you’ll need to create a new object.
     """
     def __init__(self, attr=1, skill=0, gear=0):
-        """
+        """Build the object. Make two dicts of lists to store results. thrown
+        and push are state attributes.
         """
         self.attr = attr
         self.skill = skill
@@ -92,6 +93,8 @@ class MutantDicePool:
         self.pushed_res = {'attr': [], 'skill': [], 'gear': []}
 
     def throw(self):
+        """Throw the dice and set the thrown state on.
+        """
         if self.thrown:
             return self.result
         dice = Dice()
@@ -105,6 +108,8 @@ class MutantDicePool:
         return self.result
 
     def push(self):
+        """Push the dice and set the thrown state on.
+        """
         if self.pushed:
             return self.pushed_res
         dice = Dice()
@@ -128,7 +133,14 @@ class MutantDicePool:
 
 
 class FBLDicePool:
+    """Emulate the dice pool found in Forbidden Lands. The FBLDicePool
+    object can only make one throw and then one push. To make another
+    throw, you’ll need to create a new object.
+    """
     def __init__(self, attr=1, skill=0, gear=0, artefact=None):
+        """As MutantDicePool, with artefact. Artefact dice is not a list, but
+        an int, showing how many results you get.
+        """
         self.attr = attr
         self.skill = skill
         self.gear = gear
@@ -139,6 +151,8 @@ class FBLDicePool:
         self.pushed_res = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
 
     def throw(self):
+        """Throw the dice and set the thrown state on.
+        """
         if self.thrown:
             return self.result
         dice = Dice()
@@ -155,6 +169,8 @@ class FBLDicePool:
         return self.result
 
     def push(self):
+        """Push the dice and set the pushed state on.
+        """
         if self.pushed:
             return self.pushed_res
         dice = Dice()
@@ -185,7 +201,7 @@ class FBLDicePool:
 
 
 class AlienDicePool:
-
+    """Emulate the Alien dice pool throw and push. TODO: add multipush"""
     def __init__(self, pool=1, stress=0):
         self.pool = pool
         self.stress = stress
@@ -195,6 +211,8 @@ class AlienDicePool:
         self.pushed_res = {'pool': [], 'stress': []}
 
     def throw(self):
+        """Throw the dice and set the thrown state on.
+        """    
         if self.thrown:
             return self.result
         dice = Dice()
@@ -206,6 +224,8 @@ class AlienDicePool:
         return self.result
 
     def push(self):
+        """Push the dice adding a stress die and set the pushed state on.
+        """
         if self.pushed:
             return self.pushed_res
         dice = Dice()
