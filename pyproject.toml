@@ -13,6 +13,9 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+[project.scripts]
+benchmark_mutant = "yze.benchmark_mutant:main"
+    
 [project.urls]
 "Homepage" = "https://github.com/nlegrand/yze"
 "Bug Tracker" = "https://github.com/nlegrand/yze/issues"
