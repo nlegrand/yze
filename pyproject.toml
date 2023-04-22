@@ -9,10 +9,14 @@ readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: ISC License",
+    "License :: OSI Approved :: ISC License (ISCL)",
     "Operating System :: OS Independent",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/nlegrand/yze"
 "Bug Tracker" = "https://github.com/nlegrand/yze/issues"
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"

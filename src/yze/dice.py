@@ -15,7 +15,7 @@
 from random import randrange
 
 
-class Dice:
+class SimpleDice:
     """Basic class for YZE dice
     """
     def __init__(self, size=6):
@@ -29,14 +29,14 @@ class Dice:
         self.size = size
 
     def throw(self):
-        """Generate a pseudo-random number in the range of the Dice Object. It
+        """Generate a pseudo-random number in the range of the SimpleDice Object. It
         returns an int.
 
         """
         return randrange(1, self.size + 1)
 
 
-class ArtefactDice(Dice):
+class ArtefactDice(SimpleDice):
     """Artefact dice are used in Forbidden Lands RPG.
     """
     def throw(self):
@@ -57,7 +57,7 @@ class ArtefactDice(Dice):
         return (res, successes)
 
 
-class StepDice(Dice):
+class StepDice(SimpleDice):
     """Step dice is the dice system used un Twilight 2000 and Blade Runner
     RPG.
     """
@@ -97,7 +97,7 @@ class MutantDicePool:
         """
         if self.thrown:
             return self.result
-        dice = Dice()
+        dice = SimpleDice()
         for n in range(self.attr):
             self.result['attr'].append(dice.throw())
         for n in range(self.skill):
@@ -112,7 +112,7 @@ class MutantDicePool:
         """
         if self.pushed:
             return self.pushed_res
-        dice = Dice()
+        dice = SimpleDice()
         for r in self.result['attr']:
             if r == 1 or r == 6:
                 self.pushed_res['attr'].append(r)
@@ -155,7 +155,7 @@ class FBLDicePool:
         """
         if self.thrown:
             return self.result
-        dice = Dice()
+        dice = SimpleDice()
         for n in range(self.attr):
             self.result['attr'].append(dice.throw())
         for n in range(self.skill):
@@ -173,7 +173,7 @@ class FBLDicePool:
         """
         if self.pushed:
             return self.pushed_res
-        dice = Dice()
+        dice = SimpleDice()
         for r in self.result['attr']:
             if r == 1 or r == 6:
                 self.pushed_res['attr'].append(r)
@@ -215,7 +215,7 @@ class AlienDicePool:
         """    
         if self.thrown:
             return self.result
-        dice = Dice()
+        dice = SimpleDice()
         for n in range(self.pool):
             self.result['pool'].append(dice.throw())
         for n in range(self.stress):
@@ -228,7 +228,7 @@ class AlienDicePool:
         """
         if self.pushed:
             return self.pushed_res
-        dice = Dice()
+        dice = SimpleDice()
         for r in self.result['pool']:
             if r == 6:
                 self.pushed_res['pool'].append(r)
