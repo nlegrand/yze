@@ -10,25 +10,26 @@ Year Zero Engine dice throwing.
 
 # Example
 ```
+. my_py_venv/bin/activate
 git clone https://github.com/nlegrand/yze.git
-cd yze/src/yze_dice
-python3
-Python 3.9.2 (default, Feb 28 2021, 17:03:44) 
-[GCC 10.2.1 20210110] on linux
+cd yze
+python -m pip install -e .
+python
+Python 3.11.3 (main, Apr  8 2023, 02:16:51) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
->>> from yze_dice import MutantDicePool
+>>> from yze.dice import MutantDicePool
 >>> d = MutantDicePool(attr=3, skill=2, gear=2)
 >>> d.throw()
 {'attr': [5, 6, 6], 'skill': [1, 4], 'gear': [6, 2]}
 >>> d.push()
 {'attr': [2, 6, 6], 'skill': [5, 2], 'gear': [6, 1]}
->>> from yze_dice import FBLDicePool
+>>> from yze.dice import FBLDicePool
 >>> fbl = FBLDicePool(attr=2, skill=1, artefact=12)
 >>> fbl.throw()
 {'attr': [2, 2], 'skill': [2], 'gear': [], 'artefact': (8, 2)}
 >>> fbl.push()
 {'attr': [2, 6], 'skill': [3], 'gear': [], 'artefact': (8, 2)}
->>> from yze_dice import AlienDicePool
+>>> from yze.dice import AlienDicePool
 >>> alien = AlienDicePool(pool=4, stress=1)
 >>> alien.throw()
 {'pool': [4, 1, 6, 1], 'stress': [2]}
@@ -41,7 +42,7 @@ You can also benchmark dice throw to see what are your chances to get
 some successes or damage.
 
 ```
-./benchmark_mutant --throw 10000 --attribute 4 --skill 2 --gear 1
+benchmark_mutant --throw 10000 --attribute 4 --skill 2 --gear 1
 Throwing dice 10000 times !
     at least one success : 7243
     at least one pushed success : 9096

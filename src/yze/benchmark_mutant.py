@@ -21,7 +21,7 @@ import pprint
 def main():
     parser = argparse.ArgumentParser(
                         prog='benchmark_mutant',
-                        description='make a lot of YZE throws to get some chances',
+                        description='make a lot of YZE rolls so as to have an idea of chances of success',
                         epilog='')
     
     parser.add_argument('-t', '--throw', default=10000)      # option that takes a value
