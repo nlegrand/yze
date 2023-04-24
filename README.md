@@ -42,7 +42,7 @@ You can also benchmark dice throw to see what are your chances to get
 some successes or damage.
 
 ```
-benchmark_mutant --throw 10000 --attribute 4 --skill 2 --gear 1
+benchmark_mutant --throws 10000 --attribute 4 --skill 2 --gear 1
 Throwing dice 10000 times !
     at least one success : 7243
     at least one pushed success : 9096

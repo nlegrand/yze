@@ -18,20 +18,10 @@ from yze.dice import MutantDicePool
 import argparse
 import pprint
 
-def main():
-    parser = argparse.ArgumentParser(
-                        prog='benchmark_mutant',
-                        description='make a lot of YZE rolls so as to have an idea of chances of success',
-                        epilog='')
-    
-    parser.add_argument('-t', '--throw', default=10000)      # option that takes a value
-    parser.add_argument('-a', '--attribute', default=1)
-    parser.add_argument('-s', '--skill', default=0)
-    parser.add_argument('-g', '--gear', default=0)
-    
-    args = parser.parse_args()
-    
-    
+def multiple_throws(throws=10000, attribute=1, skill=0, gear=0):
+    """Throw dice <throws> times, store results in <results>, return
+    results.
+    """
     results = {
         'atleast_one': 0,
         'atleast_one_pushed': 0,
@@ -43,9 +33,9 @@ def main():
         'gear_botched': {},
     }
     
-    print(f'Throwing dice {args.throw} times !')
-    for i in range(int(args.throw)):
-        d = MutantDicePool(attr=int(args.attribute), skill=int(args.skill), gear=int(args.gear))
+    print(f'Throwing dice {throws} times !')
+    for i in range(int(throws)):
+        d = MutantDicePool(attr=int(attribute), skill=int(skill), gear=int(gear))
         res = d.throw()
         pushed_res = d.push()
         successes = [x for x in d.result['attr'] + d.result['skill'] + d.result['gear'] if x == 6]
@@ -76,13 +66,31 @@ def main():
                 results['gear_botched'][len(gear_botched)] = 1
             else:
                 results['gear_botched'][len(gear_botched)] += 1
-    
+    return results
+
+def main():
+    """Fetch args from the commandline and proceed.
+    """
+    parser = argparse.ArgumentParser(
+                        prog='benchmark_mutant',
+                        description='make a lot of YZE rolls so as to have an idea of chances of success',
+                        epilog='')
+
+    parser.add_argument('-t', '--throws', default=10000)      # option that takes a value
+    parser.add_argument('-a', '--attribute', default=1)
+    parser.add_argument('-s', '--skill', default=0)
+    parser.add_argument('-g', '--gear', default=0)
+
+    args = parser.parse_args()
+
+    results = multiple_throws(args.throws, args.attribute, args.skill, args.gear)
+
     print (f'    at least one success : {results["atleast_one"]}')
     print (f'    at least one pushed success : {results["atleast_one_pushed"]}')
     print (f'    at least one damage to attribute : {results["atleast_one_attr_botch"]}')
     print (f'    at least one damage to gear : {results["atleast_one_gear_botch"]}')
-    
-    
+
+
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(results)
 
