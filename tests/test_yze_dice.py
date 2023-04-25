@@ -5,10 +5,14 @@ import yze.dice
 
 class TestYZEDice(unittest.TestCase):
     def test_is_int(self):
+        """SimpleDice should return an int
+        """
         d = yze.dice.SimpleDice()
         self.assertTrue(isinstance(d.throw(), int))
 
     def test_is_tuple(self):
+        """ArtefactDice and StepDice should return a tuple of two int
+        """
         ad = yze.dice.ArtefactDice()
         res = ad.throw()
         self.assertTrue(isinstance(res, tuple))
@@ -23,6 +27,8 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(isinstance(sres[1], int))
 
     def test_state(self):
+        """*DicePool classes have state, thrown and pushed.
+        """
         mdp = yze.dice.MutantDicePool()
         self.assertFalse(mdp.thrown)
         self.assertFalse(mdp.pushed)
