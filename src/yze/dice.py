@@ -201,14 +201,16 @@ class FBLDicePool:
 
 
 class AlienDicePool:
-    """Emulate the Alien dice pool throw and push. TODO: add multipush"""
+    """Emulate the Alien dice pool throw, push and multipush."""
     def __init__(self, pool=1, stress=0):
         self.pool = pool
         self.stress = stress
         self.thrown = False
         self.pushed = False
+        self.multipushed = False
         self.result = {'pool': [], 'stress': []}
         self.pushed_res = {'pool': [], 'stress': []}
+        self.multipushed_res = {'pool': [], 'stress': []}
 
     def throw(self):
         """Throw the dice and set the thrown state on.
@@ -242,3 +244,24 @@ class AlienDicePool:
 
         self.pushed = True
         return self.pushed_res
+
+    def multipush(self):
+        """Push the dice a second time adding a stress die and set the
+        multipushed state on.
+        """
+        if self.multipushed:
+            return self.multipushed_res
+        dice = SimpleDice()
+        for r in self.pushed_res['pool']:
+            if r == 6:
+                self.multipushed_res['pool'].append(r)
+            else:
+                self.multipushed_res['pool'].append(dice.throw())
+        for r in self.pushed_res['stress'] + [2]:
+            if r == 6:
+                self.multipushed_res['stress'].append(r)
+            else:
+                self.multipushed_res['stress'].append(dice.throw())
+
+        self.multipushed = True
+        return self.multipushed_res
