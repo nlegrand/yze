@@ -26,8 +26,8 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(isinstance(sres[0], int))
         self.assertTrue(isinstance(sres[1], int))
 
-    def test_state(self):
-        """*DicePool classes have state, thrown and pushed.
+    def test_state_mutant(self):
+        """MutantDicePool have state, thrown and pushed.
         """
         mdp = yze.dice.MutantDicePool()
         self.assertFalse(mdp.thrown)
@@ -36,6 +36,10 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(mdp.thrown)
         mdp.push()
         self.assertTrue(mdp.pushed)
+
+    def test_state_fbl(self):
+        """FBLDicePool have state, thrown and pushed.
+        """
         fbl = yze.dice.FBLDicePool()
         self.assertFalse(fbl.thrown)
         self.assertFalse(fbl.pushed)
@@ -43,6 +47,21 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(fbl.thrown)
         fbl.push()
         self.assertTrue(fbl.pushed)
+        
+    def test_state_alien(self):
+        """AlienDicePool have state, thrown, pushed and multipushed.
+        """
+        adp = yze.dice.AlienDicePool()
+        self.assertFalse(adp.thrown)
+        self.assertFalse(adp.pushed)
+        self.assertFalse(adp.multipushed)
+        adp.throw()
+        self.assertTrue(adp.thrown)
+        adp.push()
+        self.assertTrue(adp.pushed)
+        adp.multipush()
+        self.assertTrue(adp.multipushed)
+        
 
 
 if __name__ == '__main__':
