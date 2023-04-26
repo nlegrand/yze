@@ -6,7 +6,7 @@ authors = [
 ]
 description = "A small package to handle YZE games mechanics"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: ISC License (ISCL)",
