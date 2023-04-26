@@ -47,7 +47,7 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(fbl.thrown)
         fbl.push()
         self.assertTrue(fbl.pushed)
-        
+
     def test_state_alien(self):
         """AlienDicePool have state, thrown, pushed and multipushed.
         """
@@ -61,7 +61,7 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(adp.pushed)
         adp.multipush()
         self.assertTrue(adp.multipushed)
-        
+
 
 
 if __name__ == '__main__':
