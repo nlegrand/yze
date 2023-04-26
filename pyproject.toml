@@ -15,7 +15,8 @@ classifiers = [
 
 [project.scripts]
 benchmark_mutant = "yze.benchmark_mutant:main"
-    
+mutant_odds_of_pushing = "yze.mutant_odds_of_pushing:main"
+
 [project.urls]
 "Homepage" = "https://github.com/nlegrand/yze"
 "Bug Tracker" = "https://github.com/nlegrand/yze/issues"
