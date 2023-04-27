@@ -76,13 +76,21 @@ def main():
     """
     parser = argparse.ArgumentParser(
                         prog='mutant_odds_of_pushing',
-                        description='make a lot of YZE rolls so as to have an idea of chances of success',
-                        epilog='')
+                        description="""Once you get a result, what are your odds when pushing it?
+                        feed this command your results and see what is likely or not to happen""",
+                        epilog="""Experimental probabilities made with pseudo random numbers.
+                        Maybie it’s not the best you can get :).""")
 
     parser.add_argument('-t', '--throws', default=100000)      # option that takes a value
-    parser.add_argument('-a', '--attribute_dice')
-    parser.add_argument('-s', '--skill_dice', default=0)
-    parser.add_argument('-g', '--gear_dice', default=0)
+    parser.add_argument('-a', '--attribute_dice',
+                        help="List your dice results eg: 253",
+                        required=True)
+    parser.add_argument('-s', '--skill_dice',
+                        default=0,
+                        help="List your dice results eg: 45")
+    parser.add_argument('-g', '--gear_dice',
+                        default=0,
+                        help="List your dice results eg: 32")
 
     args = parser.parse_args()
 

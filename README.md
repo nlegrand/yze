@@ -37,6 +37,56 @@ Type "help", "copyright", "credits" or "license" for more information.
 {'pool': [1, 3, 6, 2], 'stress': [1, 1]}
 ```
 
+# Odds of pushing
+
+Free League gives very general chances to get a succes when throwing
+and pushing a dice pool according to it’s size. But how can we get
+odds after the first roll is made? `mutant_odds_of_pushing` tries do
+do exactly that. Here is the doc:
+
+```
+$ mutant_odds_of_pushing  --help           
+usage: mutant_odds_of_pushing [-h] [-t THROWS] -a ATTRIBUTE_DICE [-s SKILL_DICE] [-g GEAR_DICE]
+
+Once you get a result, what are your odds when pushing it? feed this command your results and see what is likely or not to happen
+
+options:
+  -h, --help            show this help message and exit
+  -t THROWS, --throws THROWS
+  -a ATTRIBUTE_DICE, --attribute_dice ATTRIBUTE_DICE
+                        List your dice results eg: 253
+  -s SKILL_DICE, --skill_dice SKILL_DICE
+                        List your dice results eg: 45
+  -g GEAR_DICE, --gear_dice GEAR_DICE
+                        List your dice results eg: 32
+
+Experimental probabilities made with pseudo random numbers. Maybie it’s not the best you can get :).
+```
+And here is an example:
+
+
+```
+$ mutant_odds_of_pushing -a 253 -s 45 -g 32
+Throwing dice 100000 times !
+Odds of having:
+    -at least one success: 72.026 %
+    -at least one attr botch: 42.091 %
+    -at least one gear botch: 30.404 %
+    - 1 successes: 39.356 %
+    - 2 successes: 23.168 %
+    - 3 successes: 7.759 %
+    - 4 successes: 1.543 %
+    - 5 successes: 0.192 %
+    - 6 successes: 0.008 %
+    - 1 attribute botchs: 34.628 %
+    - 2 attribute botchs: 6.957 %
+    - 3 attribute botchs: 0.506 %
+    - 1 gear botchs: 27.686 %
+    - 2 gear botchs: 2.718 %
+```
+
+Running multiple times produce different odds, but in the same order.
+
 # Benchmark
 You can also benchmark dice throw to see what are your chances to get
 some successes or damage.
