@@ -16,18 +16,15 @@
 
 from yze.dice import MutantDicePool
 import argparse
-import pprint
 
-def multiple_throws(attribute, skill, gear, throws=10000):
+def multiple_throws(attribute, skill, gear, throws=100000):
     """Throw dice <throws> times, store results in <results>, return
     results.
     """
     results = {
-        'atleast_one': 0,
         'atleast_one_pushed': 0,
         'atleast_one_attr_botch': 0,
         'atleast_one_gear_botch': 0,
-        'successes': {},
         'pushed_successes': {},
         'attribute_botched': {},
         'gear_botched': {},
@@ -82,7 +79,7 @@ def main():
                         description='make a lot of YZE rolls so as to have an idea of chances of success',
                         epilog='')
 
-    parser.add_argument('-t', '--throws', default=10000)      # option that takes a value
+    parser.add_argument('-t', '--throws', default=100000)      # option that takes a value
     parser.add_argument('-a', '--attribute_dice')
     parser.add_argument('-s', '--skill_dice', default=0)
     parser.add_argument('-g', '--gear_dice', default=0)
@@ -93,15 +90,21 @@ def main():
     skill_res = unpack(args.skill_dice)
     gear_res = unpack(args.gear_dice)
 
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(attribute_res)
-    pp.pprint(skill_res)
-    pp.pprint(gear_res)
+    throws = int(args.throws)
 
-    
-    results = multiple_throws(attribute_res, skill_res, gear_res,throws=args.throws)
+    results = multiple_throws(attribute_res, skill_res, gear_res,throws=throws)
 
-    pp.pprint(results)
-    
+    print ("Odds of having:")
+    print (f"    -at least one success: {results['atleast_one_pushed'] * 100 / throws} %")
+    print (f"    -at least one attr botch: {results['atleast_one_attr_botch'] * 100 / throws} %")
+    print (f"    -at least one gear botch: {results['atleast_one_gear_botch'] * 100 / throws} %")
+    for key in sorted(results['pushed_successes']):
+        print (f"    - {key} successes: {results['pushed_successes'][key] * 100 / throws} %")
+    for key in sorted(results['attribute_botched']):
+        print (f"    - {key} attribute botchs: {results['attribute_botched'][key] * 100 / throws} %")
+    for key in sorted(results['gear_botched']):
+        print (f"    - {key} gear botchs: {results['gear_botched'][key] * 100 / throws} %")
+
+
 if __name__ == "__main__":
     main()
