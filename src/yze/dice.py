@@ -265,3 +265,46 @@ class AlienDicePool:
 
         self.multipushed = True
         return self.multipushed_res
+
+
+class BladeRunnerDicePool:
+    """Emulate the Blade Runner dice pool avantage, disavantage,
+    throw, push and multipush."""
+    def __init__(self, attr="D", skill="D", advantage=None):
+        self.attr = attr
+        self.skill = skill
+        self.advantage = advantage
+        self.thrown = False
+        self.pushed = False
+        self.multipushed = False
+        self.result = {}
+        self.pushed_res = {}
+        self.multipushed_res = {}
+
+    def value_to_dice(self, value):
+        """Return the StepDice object according to the attribute or
+        skill value.
+        """
+        match value:
+            case "A":
+                return StepDice(size=12)
+            case "B":
+                return StepDice(size=10)
+            case "C":
+                return StepDice(size=8)
+            case "D":
+                return StepDice(size=6)
+            case _:
+                raise ValueError
+
+    def throw(self):
+        """Throw the dice and set the thrown state on.
+        """
+        if self.thrown:
+            return self.result
+        attr_die = self.value_to_dice(value=self.attr)
+        skill_die = self.value_to_dice(value=self.skill)
+        self.result['attr'] = attr_die.throw()
+        self.result['skill'] = skill_die.throw()
+        self.thrown = True
+        return self.result
