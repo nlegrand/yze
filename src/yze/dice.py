@@ -287,24 +287,46 @@ class BladeRunnerDicePool:
         """
         match value:
             case "A":
-                return StepDice(size=12)
+                return self.make_dice_and_throw(dice_size=12)
             case "B":
-                return StepDice(size=10)
+                return self.make_dice_and_throw(dice_size=10)
             case "C":
-                return StepDice(size=8)
+                return self.make_dice_and_throw(dice_size=8)
             case "D":
-                return StepDice(size=6)
+                return self.make_dice_and_throw(dice_size=6)
+            case None:
+                return None
             case _:
                 raise ValueError
+
+    def make_dice_and_throw(self, dice_size):
+        d = StepDice(size=dice_size)
+        return d.throw()
 
     def throw(self):
         """Throw the dice and set the thrown state on.
         """
         if self.thrown:
             return self.result
-        attr_die = self.value_to_dice(value=self.attr)
-        skill_die = self.value_to_dice(value=self.skill)
-        self.result['attr'] = attr_die.throw()
-        self.result['skill'] = skill_die.throw()
+        adv_die_res = None
+        if self.advantage:
+            if self.attr > self.skill:
+                adv_die_res = self.value_to_dice(value=self.skill)
+            else:
+                adv_die_res = self.value_to_dice(value=self.attr)
+        elif self.advantage is False:
+            #then it’s a disavantage
+            if self.attr > self.skill:
+                self.skill = None
+            else:
+                self.attr = None
+        attr_res = self.value_to_dice(value=self.attr)
+        skill_res = self.value_to_dice(value=self.skill)
+        if attr_res:
+            self.result['attr'] = attr_res
+        if skill_res:
+            self.result['skill'] = skill_res
+        if adv_die_res:
+            self.result['adv_die'] = adv_die_res
         self.thrown = True
         return self.result
