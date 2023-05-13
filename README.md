@@ -6,7 +6,7 @@ Year Zero Engine dice throwing.
 - [X] Forbidden Lands
 - [ ] Twilight 2000
 - [X] Alien
-- [ ] Blade Runner
+- [X] Blade Runner
 
 # Example
 ```

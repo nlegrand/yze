@@ -310,7 +310,7 @@ class BladeRunnerDicePool:
             return self.result
         adv_die_res = None
         if self.advantage:
-            if self.attr > self.skill:
+            if self.attr < self.skill: # A < B
                 adv_die_res = self.value_to_dice(value=self.skill)
             else:
                 adv_die_res = self.value_to_dice(value=self.attr)
@@ -330,3 +330,34 @@ class BladeRunnerDicePool:
             self.result['adv_die'] = adv_die_res
         self.thrown = True
         return self.result
+
+    def check_res_and_push(self, res, value, even_one_success = False):
+        """Push the dice unless it already has two success or one
+        success while even_one_success is set to False
+        """
+        if res[1] > 1:
+            return res
+        if res[1] == 1 and not even_one_success:
+            return res
+        return self.value_to_dice(value=value)
+
+    
+    def push(self, even_one_success=False):
+
+        """Push all dice you can push, even if you got one success on one
+        """
+        if self.pushed:
+            return self.pushed_res
+        if 'attr' in self.result:
+            self.pushed_res['attr'] = self.check_res_and_push(self.result['attr'], self.attr, even_one_success)
+        if 'skill' in self.result:
+            self.pushed_res['skill'] = self.check_res_and_push(self.result['skill'], self.skill, even_one_success)
+        if 'adv_die' in self.result:
+            if self.attr < self.skill:
+                adv_die = self.skill
+            else:
+                adv_die = self.attr
+            self.pushed_res['adv_die'] = self.check_res_and_push(self.result['adv_die'], adv_die, even_one_success)
+        self.pushed = True
+        return self.pushed_res
+    
