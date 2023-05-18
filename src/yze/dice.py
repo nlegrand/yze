@@ -265,9 +265,77 @@ class AlienDicePool:
 
         self.multipushed = True
         return self.multipushed_res
+class Twilight2000DicePool:
+    """Emulate the Twilight 2000 dice pool, ammo throw, push
+    """
+    def __init__(self, attr="D", skill=None, ammo=None):
+        self.attr = attr
+        self.skill = skill
+        self.ammo = ammo
+        self.thrown = False
+        self.pushed = False
+        self.multipushed = False
+        self.result = {}
+        self.pushed_res = {}
+        self.multipushed_res = {}
 
+    def value_to_dice(self, value):
+        """Return the StepDice object according to the attribute or
+        skill value.
+        """
+        match value:
+            case "A":
+                return self.make_dice_and_throw(dice_size=12)
+            case "B":
+                return self.make_dice_and_throw(dice_size=10)
+            case "C":
+                return self.make_dice_and_throw(dice_size=8)
+            case "D":
+                return self.make_dice_and_throw(dice_size=6)
+            case None:
+                return None
+            case _:
+                raise ValueError
 
-class BladeRunnerDicePool:
+    def make_dice_and_throw(self, dice_size):
+        d = StepDice(size=dice_size)
+        return d.throw()
+
+    def throw(self):
+        """Throw the dice and set the thrown state on.
+        """
+        if self.thrown:
+            return self.result
+        attr_res = self.value_to_dice(value=self.attr)
+        skill_res = self.value_to_dice(value=self.skill)
+        if attr_res:
+            self.result['attr'] = attr_res
+        if skill_res:
+            self.result['skill'] = skill_res
+        self.thrown = True
+        return self.result
+
+    def check_res_and_push(self, res, value):
+        """Push the dice unless it already has two success or one
+        success while even_one_success is set to False
+        """
+        if res[1] >= 1:
+            return res
+        return self.value_to_dice(value=value)
+
+    def push(self):
+        """Push all dice you can push
+        """
+        if self.pushed:
+            return self.pushed_res
+        if 'attr' in self.result:
+            self.pushed_res['attr'] = self.check_res_and_push(self.result['attr'], self.attr)
+        if 'skill' in self.result:
+            self.pushed_res['skill'] = self.check_res_and_push(self.result['skill'], self.skill)
+        self.pushed = True
+        return self.pushed_res
+
+class BladeRunnerDicePool():
     """Emulate the Blade Runner dice pool avantage, disavantage,
     throw, push and multipush."""
     def __init__(self, attr="D", skill="D", advantage=None):
