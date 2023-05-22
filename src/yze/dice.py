@@ -74,6 +74,23 @@ class StepDice(SimpleDice):
             successes = 2
         return (res, successes)
 
+class HitLocationDie():
+    """Twilight 2000 use a special die to determine the hit location.
+    """
+    def __init__(self):
+        """d6  Hit Location
+        1   Legs
+        2-4 Torso
+        5   Arm
+        6   Head
+        """
+        self.hit_location = ["Legs", "Torso", "Torso", "Torso", "Arm", "Head"]
+
+    def throw(self):
+        """Roll for hit location
+        """
+        return self.hit_location[randrange(6)]
+
 
 class MutantDicePool:
     """Emulate the dice pool found in Mutant: Year Zero. The

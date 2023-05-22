@@ -26,6 +26,15 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(isinstance(sres[0], int))
         self.assertTrue(isinstance(sres[1], int))
 
+    def test_location(self):
+        """Hit Location Die return Legs, Torso, Arm or Head.
+        """
+        hit_locations = ["Legs", "Torso", "Arm", "Head"]
+        hld = yze.dice.HitLocationDie()
+        location = hld.throw()
+        test_location = [x for x in hit_locations if x == location]
+        self.assertEqual(len(test_location), 1)
+
     def test_state_mutant(self):
         """MutantDicePool have state, thrown and pushed.
         """
