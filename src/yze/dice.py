@@ -147,8 +147,10 @@ class FBLDicePool:
         self.artefact = artefact
         self.thrown = False
         self.pushed = False
+        self.multipushed = False
         self.result = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
         self.pushed_res = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
+        self.multipushed_res = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
 
     def throw(self):
         """Throw the dice and set the thrown state on.
@@ -198,6 +200,42 @@ class FBLDicePool:
 
         self.pushed = True
         return self.pushed_res
+
+    def multipush(self):
+        """Dwarves can multipush without limit...
+        """
+        if not self.pushed and self.thrown:
+            return self.push(self)
+        if self.multipushed:
+            """Permit multipush to be repeated to the point were you
+            have 6 or 1 everywhere. This is destructive, we don’t keep track of all results.
+            """
+            self.pushed_res = self.multipushed_res
+            self.multipushed_res =  {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
+        dice = SimpleDice()
+        for r in self.pushed_res['attr']:
+            if r == 1 or r == 6:
+                self.multipushed_res['attr'].append(r)
+            else:
+                self.multipushed_res['attr'].append(dice.throw())
+        for r in self.pushed_res['skill']:
+            if r == 6:
+                self.multipushed_res['skill'].append(r)
+            else:
+                self.multipushed_res['skill'].append(dice.throw())
+        for r in self.pushed_res['gear']:
+            if r == 1 or r == 6:
+                self.multipushed_res['gear'].append(r)
+            else:
+                self.multipushed_res['gear'].append(dice.throw())
+        if self.artefact is not None:
+            if self.pushed_res['artefact'][1] == 0:
+                artefact_dice = ArtefactDice(self.artefact)
+                self.multipushed_res['artefact'] = artefact_dice.throw()
+            else:
+                self.multipushed_res['artefact'] = self.pushed_res['artefact']
+        self.multipushed = True
+        return self.multipushed_res
 
 
 class AlienDicePool:
