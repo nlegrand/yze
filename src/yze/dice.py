@@ -331,6 +331,8 @@ class Twilight2000DicePool:
         self.thrown = False
         self.pushed = False
         self.multipushed = False
+        self.hit_locationed = False
+        self.hit_location_res = ''
         self.result = {}
         self.pushed_res = {}
         self.multipushed_res = {}
@@ -370,6 +372,13 @@ class Twilight2000DicePool:
             self.result['skill'] = skill_res
         self.thrown = True
         return self.result
+
+    def hit_location(self):
+        if self.hit_locationed:
+            return self.hit_location_res
+        self.hit_location_res = HitLocationDie().throw()
+        self.hit_locationed = True
+        return self.hit_location_res
 
     def check_res_and_push(self, res, value):
         """Push the dice unless it already has two success or one

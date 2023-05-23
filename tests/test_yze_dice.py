@@ -48,7 +48,7 @@ class TestYZEDice(unittest.TestCase):
         self.assertEqual(len(test_location), 1)
 
     def test_state_mutant(self):
-        """MutantDicePool have state, thrown and pushed.
+        """MutantDicePool has states: thrown and pushed.
         """
         mdp = yze.dice.MutantDicePool()
         self.assertFalse(mdp.thrown)
@@ -59,7 +59,7 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(mdp.pushed)
 
     def test_state_fbl(self):
-        """FBLDicePool have state, thrown and pushed.
+        """FBLDicePool has states: thrown and pushed.
         """
         fbl = yze.dice.FBLDicePool()
         self.assertFalse(fbl.thrown)
@@ -70,7 +70,7 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(fbl.pushed)
 
     def test_state_alien(self):
-        """AlienDicePool have state, thrown, pushed and multipushed.
+        """AlienDicePool has states: thrown, pushed and multipushed.
         """
         adp = yze.dice.AlienDicePool()
         self.assertFalse(adp.thrown)
@@ -83,6 +83,20 @@ class TestYZEDice(unittest.TestCase):
         adp.multipush()
         self.assertTrue(adp.multipushed)
 
+    def test_state_twilight_2000(self):
+        """Twilight2000DicePool has states: thrown, pushed,
+        hit_locationed
+        """
+        t2k = yze.dice.Twilight2000DicePool()
+        self.assertFalse(t2k.thrown)
+        self.assertFalse(t2k.pushed)
+        self.assertFalse(t2k.hit_locationed)
+        t2k.throw()
+        self.assertTrue(t2k.thrown)
+        t2k.push()
+        self.assertTrue(t2k.pushed)
+        t2k.hit_location()
+        self.assertTrue(t2k.pushed)
 
 
 if __name__ == '__main__':
