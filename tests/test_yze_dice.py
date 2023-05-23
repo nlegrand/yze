@@ -31,6 +31,7 @@ class TestYZEDice(unittest.TestCase):
         """
         hit_locations = ["Legs", "Torso", "Arm", "Head"]
         hld = yze.dice.HitLocationDie()
+        self.assertTrue(hld, str)
         location = hld.throw()
         test_location = [x for x in hit_locations if x == location]
         self.assertEqual(len(test_location), 1)
