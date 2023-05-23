@@ -27,12 +27,23 @@ class TestYZEDice(unittest.TestCase):
         self.assertTrue(isinstance(sres[1], int))
 
     def test_location(self):
-        """Hit Location Die return Legs, Torso, Arm or Head.
+        """Hit Location Die return Leg, Torso, Arm or Head.
         """
-        hit_locations = ["Legs", "Torso", "Arm", "Head"]
         hld = yze.dice.HitLocationDie()
-        self.assertTrue(hld, str)
+
+        self.assertEqual(hld.die_size, 6)
+        leg = [x for x in hld.hit_location if x == "Leg"]
+        self.assertEqual(len(leg), 1)
+        torso = [x for x in hld.hit_location if x == "Torso"]
+        self.assertEqual(len(torso), 3)
+        arm = [x for x in hld.hit_location if x == "Arm"]
+        self.assertEqual(len(arm), 1)
+        head = [x for x in hld.hit_location if x == "Head"]
+        self.assertEqual(len(head), 1)
+
         location = hld.throw()
+        self.assertTrue(location, str)
+        hit_locations = ["Leg", "Torso", "Arm", "Head"]
         test_location = [x for x in hit_locations if x == location]
         self.assertEqual(len(test_location), 1)
 

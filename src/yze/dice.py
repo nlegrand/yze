@@ -84,12 +84,13 @@ class HitLocationDie():
         5   Arm
         6   Head
         """
-        self.hit_location = ["Legs", "Torso", "Torso", "Torso", "Arm", "Head"]
+        self.hit_location = ["Leg", "Torso", "Torso", "Torso", "Arm", "Head"]
+        self.die_size = 6
 
     def throw(self):
         """Roll for hit location
         """
-        return self.hit_location[randrange(6)]
+        return self.hit_location[randrange(self.die_size)]
 
 
 class MutantDicePool:
