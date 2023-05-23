@@ -15,7 +15,7 @@
 from random import randrange
 
 
-class SimpleDice:
+class SimpleDie:
     """Basic class for YZE dice
     """
     def __init__(self, size=6):
@@ -29,14 +29,14 @@ class SimpleDice:
         self.size = size
 
     def throw(self):
-        """Generate a pseudo-random number in the range of the SimpleDice Object. It
+        """Generate a pseudo-random number in the range of the SimpleDie Object. It
         returns an int.
 
         """
         return randrange(1, self.size + 1)
 
 
-class ArtefactDice(SimpleDice):
+class ArtefactDie(SimpleDie):
     """Artefact dice are used in Forbidden Lands RPG.
     """
     def throw(self):
@@ -57,14 +57,14 @@ class ArtefactDice(SimpleDice):
         return (res, successes)
 
 
-class StepDice(SimpleDice):
+class StepDie(SimpleDie):
     """Step dice is the dice system used un Twilight 2000 and Blade Runner
     RPG.
     """
     def throw(self):
         """Step dice suceeds on 6+. You have more successes with higher
         result. Returns a tuple with the results and the successes
-        obtained. The success rate is different from ArtefactDice
+        obtained. The success rate is different from ArtefactDie
         """
         res = randrange(1, self.size + 1)
         successes = 0
@@ -114,7 +114,7 @@ class MutantDicePool:
         """
         if self.thrown:
             return self.result
-        dice = SimpleDice()
+        dice = SimpleDie()
         for n in range(self.attr):
             self.result['attr'].append(dice.throw())
         for n in range(self.skill):
@@ -129,7 +129,7 @@ class MutantDicePool:
         """
         if self.pushed:
             return self.pushed_res
-        dice = SimpleDice()
+        dice = SimpleDie()
         for r in self.result['attr']:
             if r == 1 or r == 6:
                 self.pushed_res['attr'].append(r)
@@ -174,7 +174,7 @@ class FBLDicePool:
         """
         if self.thrown:
             return self.result
-        dice = SimpleDice()
+        dice = SimpleDie()
         for n in range(self.attr):
             self.result['attr'].append(dice.throw())
         for n in range(self.skill):
@@ -182,7 +182,7 @@ class FBLDicePool:
         for n in range(self.gear):
             self.result['gear'].append(dice.throw())
         if self.artefact is not None:
-            artefact_dice = ArtefactDice(size=self.artefact)
+            artefact_dice = ArtefactDie(size=self.artefact)
             self.result['artefact'] = artefact_dice.throw()
         self.thrown = True
         return self.result
@@ -192,7 +192,7 @@ class FBLDicePool:
         """
         if self.pushed:
             return self.pushed_res
-        dice = SimpleDice()
+        dice = SimpleDie()
         for r in self.result['attr']:
             if r == 1 or r == 6:
                 self.pushed_res['attr'].append(r)
@@ -210,7 +210,7 @@ class FBLDicePool:
                 self.pushed_res['gear'].append(dice.throw())
         if self.artefact is not None:
             if self.result['artefact'][1] == 0:
-                artefact_dice = ArtefactDice(self.artefact)
+                artefact_dice = ArtefactDie(self.artefact)
                 self.pushed_res['artefact'] = artefact_dice.throw()
             else:
                 self.pushed_res['artefact'] = self.result['artefact']
@@ -229,7 +229,7 @@ class FBLDicePool:
             """
             self.pushed_res = self.multipushed_res
             self.multipushed_res =  {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
-        dice = SimpleDice()
+        dice = SimpleDie()
         for r in self.pushed_res['attr']:
             if r == 1 or r == 6:
                 self.multipushed_res['attr'].append(r)
@@ -247,7 +247,7 @@ class FBLDicePool:
                 self.multipushed_res['gear'].append(dice.throw())
         if self.artefact is not None:
             if self.pushed_res['artefact'][1] == 0:
-                artefact_dice = ArtefactDice(self.artefact)
+                artefact_dice = ArtefactDie(self.artefact)
                 self.multipushed_res['artefact'] = artefact_dice.throw()
             else:
                 self.multipushed_res['artefact'] = self.pushed_res['artefact']
@@ -272,7 +272,7 @@ class AlienDicePool:
         """    
         if self.thrown:
             return self.result
-        dice = SimpleDice()
+        dice = SimpleDie()
         for n in range(self.pool):
             self.result['pool'].append(dice.throw())
         for n in range(self.stress):
@@ -285,7 +285,7 @@ class AlienDicePool:
         """
         if self.pushed:
             return self.pushed_res
-        dice = SimpleDice()
+        dice = SimpleDie()
         for r in self.result['pool']:
             if r == 6:
                 self.pushed_res['pool'].append(r)
@@ -306,7 +306,7 @@ class AlienDicePool:
         """
         if self.multipushed:
             return self.multipushed_res
-        dice = SimpleDice()
+        dice = SimpleDie()
         for r in self.pushed_res['pool']:
             if r == 6:
                 self.multipushed_res['pool'].append(r)
@@ -335,7 +335,7 @@ class Twilight2000DicePool:
         self.multipushed_res = {}
 
     def value_to_dice(self, value):
-        """Return the StepDice object according to the attribute or
+        """Return the StepDie object according to the attribute or
         skill value.
         """
         match value:
@@ -353,7 +353,7 @@ class Twilight2000DicePool:
                 raise ValueError
 
     def make_dice_and_throw(self, dice_size):
-        d = StepDice(size=dice_size)
+        d = StepDie(size=dice_size)
         return d.throw()
 
     def throw(self):
@@ -405,7 +405,7 @@ class BladeRunnerDicePool():
         self.multipushed_res = {}
 
     def value_to_dice(self, value):
-        """Return the StepDice object according to the attribute or
+        """Return the StepDie object according to the attribute or
         skill value.
         """
         match value:
@@ -423,7 +423,7 @@ class BladeRunnerDicePool():
                 raise ValueError
 
     def make_dice_and_throw(self, dice_size):
-        d = StepDice(size=dice_size)
+        d = StepDie(size=dice_size)
         return d.throw()
 
     def throw(self):

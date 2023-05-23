@@ -5,21 +5,21 @@ import yze.dice
 
 class TestYZEDice(unittest.TestCase):
     def test_is_int(self):
-        """SimpleDice should return an int
+        """SimpleDie should return an int
         """
-        d = yze.dice.SimpleDice()
+        d = yze.dice.SimpleDie()
         self.assertTrue(isinstance(d.throw(), int))
 
     def test_is_tuple(self):
-        """ArtefactDice and StepDice should return a tuple of two int
+        """ArtefactDie and StepDie should return a tuple of two int
         """
-        ad = yze.dice.ArtefactDice()
+        ad = yze.dice.ArtefactDie()
         res = ad.throw()
         self.assertTrue(isinstance(res, tuple))
         self.assertEqual(len(res), 2)
         self.assertTrue(isinstance(res[0], int))
         self.assertTrue(isinstance(res[1], int))
-        sd = yze.dice.StepDice()
+        sd = yze.dice.StepDie()
         sres = sd.throw()
         self.assertTrue(isinstance(sres, tuple))
         self.assertEqual(len(sres), 2)
