@@ -369,6 +369,11 @@ class Twilight2000DicePool:
             return self.result
         attr_res = self.value_to_dice(value=self.attr)
         skill_res = self.value_to_dice(value=self.skill)
+        if self.ammo:
+            self.result['ammo'] = []
+            d = SimpleDie()
+            for a in range(self.ammo):
+                self.result['ammo'].append(d.throw())
         if attr_res:
             self.result['attr'] = attr_res
         if skill_res:
@@ -400,6 +405,14 @@ class Twilight2000DicePool:
             self.pushed_res['attr'] = self.check_res_and_push(self.result['attr'], self.attr)
         if 'skill' in self.result:
             self.pushed_res['skill'] = self.check_res_and_push(self.result['skill'], self.skill)
+        if 'ammo' in self.result:
+            d = SimpleDie()
+            self.pushed_res['ammo'] = []
+            for r in self.result['ammo']:
+                if r == 1 or r == 6:
+                    self.pushed_res['ammo'].append(r)
+                else:
+                    self.pushed_res['ammo'].append(d.throw())
         self.pushed = True
         return self.pushed_res
 

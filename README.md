@@ -4,7 +4,7 @@ Year Zero Engine dice throwing.
 # System supported:
 - [X] Mutant: Year Zero
 - [X] Forbidden Lands
-- [ ] Twilight 2000
+- [X] Twilight 2000
 - [X] Alien
 - [X] Blade Runner
 
