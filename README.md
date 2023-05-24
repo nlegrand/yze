@@ -1,6 +1,18 @@
 The main goal of this Python library is to propose an object to emulate
 Year Zero Engine dice throwing.
 
+# What is it about?
+
+The Year Zero Engine is a very nice Roleplaying Game system created by
+the terrific Tomas Härenstam at [Free League
+Publishing](https://freeleaguepublishing.com/). You can check the
+[SRD](https://freeleaguepublishing.com/en/free-tabletop-licenses/) to
+see how it is done or [the
+games](https://freeleaguepublishing.com/en/store/) directly.
+
+This Python module is unofficial and not affiliated with Free
+League. I've made it just for fun.
+
 # System supported:
 - [X] Mutant: Year Zero
 - [X] Forbidden Lands
