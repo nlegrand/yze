@@ -29,9 +29,8 @@ class SimpleDie:
         self.size = size
 
     def throw(self):
-        """Generate a pseudo-random number in the range of the SimpleDie Object. It
-        returns an int.
-
+        """Generate a pseudo-random number in the range of the SimpleDie
+        Object. It returns an int.
         """
         return randrange(1, self.size + 1)
 
@@ -73,6 +72,7 @@ class StepDie(SimpleDie):
         elif 10 <= res <= 12:
             successes = 2
         return (res, successes)
+
 
 class HitLocationDie():
     """Twilight 2000 use a special die to determine the hit location.
@@ -225,11 +225,12 @@ class FBLDicePool:
         if not self.pushed and self.thrown:
             return self.push(self)
         if self.multipushed:
-            """Permit multipush to be repeated to the point were you
-            have 6 or 1 everywhere. This is destructive, we don’t keep track of all results.
+            """Permit multipush to be repeated to the point were you have 6 or 1
+            everywhere. This is destructive, we don’t keep track of
+            all results.
             """
             self.pushed_res = self.multipushed_res
-            self.multipushed_res =  {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
+            self.multipushed_res = {'attr': [], 'skill': [], 'gear': [], 'artefact': 0}
         dice = SimpleDie()
         for r in self.pushed_res['attr']:
             if r == 1 or r == 6:
@@ -270,7 +271,7 @@ class AlienDicePool:
 
     def throw(self):
         """Throw the dice and set the thrown state on.
-        """    
+        """   
         if self.thrown:
             return self.result
         dice = SimpleDie()
@@ -321,6 +322,8 @@ class AlienDicePool:
 
         self.multipushed = True
         return self.multipushed_res
+
+
 class Twilight2000DicePool:
     """Emulate the Twilight 2000 dice pool, ammo throw, push
     """
@@ -400,6 +403,7 @@ class Twilight2000DicePool:
         self.pushed = True
         return self.pushed_res
 
+
 class BladeRunnerDicePool():
     """Emulate the Blade Runner dice pool avantage, disavantage,
     throw, push and multipush."""
@@ -443,12 +447,12 @@ class BladeRunnerDicePool():
             return self.result
         adv_die_res = None
         if self.advantage:
-            if self.attr < self.skill: # A < B
+            if self.attr < self.skill:  # A < B
                 adv_die_res = self.value_to_dice(value=self.skill)
             else:
                 adv_die_res = self.value_to_dice(value=self.attr)
         elif self.advantage is False:
-            #then it’s a disavantage
+            # then it’s a disavantage
             if self.attr > self.skill:
                 self.skill = None
             else:
@@ -464,7 +468,7 @@ class BladeRunnerDicePool():
         self.thrown = True
         return self.result
 
-    def check_res_and_push(self, res, value, even_one_success = False):
+    def check_res_and_push(self, res, value, even_one_success=False):
         """Push the dice unless it already has two success or one
         success while even_one_success is set to False
         """
@@ -474,7 +478,6 @@ class BladeRunnerDicePool():
             return res
         return self.value_to_dice(value=value)
 
-    
     def push(self, even_one_success=False):
 
         """Push all dice you can push, even if you got one success on one
@@ -493,4 +496,4 @@ class BladeRunnerDicePool():
             self.pushed_res['adv_die'] = self.check_res_and_push(self.result['adv_die'], adv_die, even_one_success)
         self.pushed = True
         return self.pushed_res
-    
+   
