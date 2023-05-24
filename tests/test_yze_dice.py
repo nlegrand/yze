@@ -96,7 +96,18 @@ class TestYZEDice(unittest.TestCase):
         t2k.push()
         self.assertTrue(t2k.pushed)
         t2k.hit_location()
-        self.assertTrue(t2k.pushed)
+        self.assertTrue(t2k.hit_locationed)
+
+    def test_state_blade_runner(self):
+        """Blade Runner has states: thrown, pushed
+        """
+        br = yze.dice.BladeRunnerDicePool()
+        self.assertFalse(br.thrown)
+        self.assertFalse(br.pushed)
+        br.throw()
+        self.assertTrue(br.thrown)
+        br.push()
+        self.assertTrue(br.pushed)
 
 
 if __name__ == '__main__':
