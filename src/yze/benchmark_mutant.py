@@ -114,7 +114,7 @@ def main():
     throws = int(args.throws)
 
     if args.complete:
-        pass
+        print("Complete benchmark not implemented yet, sorry!")
     else:
         results = multiple_throws(throws, args.attribute, args.skill, args.gear)
         print_result('at least one success', results['atleast_one'], throws)
