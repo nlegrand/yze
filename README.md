@@ -104,20 +104,37 @@ You can also benchmark dice throw to see what are your chances to get
 some successes or damage.
 
 ```
-benchmark_mutant --throws 10000 --attribute 4 --skill 2 --gear 1
-Throwing dice 10000 times !
-    at least one success : 7243
-    at least one pushed success : 9096
-    at least one damage to attribute : 7245
-    at least one damage to gear : 2767
-{   'atleast_one': 7243,
-    'atleast_one_attr_botch': 7245,
-    'atleast_one_gear_botch': 2767,
-    'atleast_one_pushed': 9096,
-    'attribute_botched': {1: 4158, 2: 2404, 3: 622, 4: 61},
-    'gear_botched': {1: 2767},
-    'pushed_successes': {1: 2666, 2: 3304, 3: 2070, 4: 843, 5: 194, 6: 19},
-    'successes': {1: 3895, 2: 2424, 3: 757, 4: 154, 5: 13}}
+$ benchmark_mutant  -a 4 -s 2 -g 2
+Throwing dice pool (attribute: 4, skill: 2, gear: 2) 100000 times !
+at least one success: 76.791 %
+at least on pushed succes: 93.235 %
+at least one damage to attribute: 73.079 %
+at least one damage to gear: 47.882 %
+Successes on first roll:
+    chances to get 1: 37.343 %
+    chances to get 2: 25.997 %
+    chances to get 3: 10.273 %
+    chances to get 4: 2.718 %
+    chances to get 5: 0.422 %
+    chances to get 6: 0.036 %
+    chances to get 7: 0.002 %
+Successes on pushed roll:
+    chances to get 1: 21.921 %
+    chances to get 2: 30.324 %
+    chances to get 3: 24.232 %
+    chances to get 4: 11.968 %
+    chances to get 5: 3.886 %
+    chances to get 6: 0.813 %
+    chances to get 7: 0.088 %
+    chances to get 8: 0.003 %
+Attribute damage:
+    chances to get 1: 41.93 %
+    chances to get 2: 24.337 %
+    chances to get 3: 6.247 %
+    chances to get 4: 0.565 %
+Gear damage:
+    chances to get 1: 40.233 %
+    chances to get 2: 7.649 %
+
 ```
 
-Yes I know, I can improve this output :). I'll do it!

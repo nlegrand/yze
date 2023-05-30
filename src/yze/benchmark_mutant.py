@@ -17,6 +17,14 @@
 from yze.dice import MutantDicePool
 import argparse
 import pprint
+import logging, sys, os
+
+DEBUG=os.getenv('DEBUG')
+loglevel = logging.INFO
+if DEBUG:
+    loglevel = logging.DEBUG
+logging.basicConfig(stream=sys.stderr, level=loglevel)
+
 
 def multiple_throws(throws=10000, attribute=1, skill=0, gear=0):
     """Throw dice <throws> times, store results in <results>, return
@@ -33,7 +41,7 @@ def multiple_throws(throws=10000, attribute=1, skill=0, gear=0):
         'gear_botched': {},
     }
     
-    print(f'Throwing dice {throws} times !')
+    print(f'Throwing dice pool (attribute: {attribute}, skill: {skill}, gear: {gear}) {throws} times !')
     for i in range(int(throws)):
         d = MutantDicePool(attr=int(attribute), skill=int(skill), gear=int(gear))
         res = d.throw()
@@ -75,6 +83,17 @@ def complete_benchmark():
 
     """
     pass
+def print_result(result_name, result, throws):
+    """Pretty print result to terminal
+    """
+    print (f'{result_name}: {result * 100 / throws} %')
+
+def print_result_list(result_list_name, result_list, throws):
+    """Pretty print the full result list
+    """
+    print(f'{result_list_name}:')
+    for key in sorted(result_list):
+        print(f'    chances to get {key}: {result_list[key] * 100 / throws} %')
 
 
 def main():
@@ -85,27 +104,28 @@ def main():
                         description='make a lot of YZE rolls so as to have an idea of chances of success',
                         epilog='')
 
-    parser.add_argument('-t', '--throws', default=10000)      # option that takes a value
+    parser.add_argument('-t', '--throws', default=100000)      # option that takes a value
     parser.add_argument('-a', '--attribute', default=1)
     parser.add_argument('-s', '--skill', default=0)
     parser.add_argument('-g', '--gear', default=0)
     parser.add_argument('-c', '--complete', action='store_true')
 
     args = parser.parse_args()
+    throws = int(args.throws)
 
     if args.complete:
         pass
     else:
-        results = multiple_throws(args.throws, args.attribute, args.skill, args.gear)
-
-        print (f'    at least one success : {results["atleast_one"]}')
-        print (f'    at least one pushed success : {results["atleast_one_pushed"]}')
-        print (f'    at least one damage to attribute : {results["atleast_one_attr_botch"]}')
-        print (f'    at least one damage to gear : {results["atleast_one_gear_botch"]}')
-
-
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(results)
+        results = multiple_throws(throws, args.attribute, args.skill, args.gear)
+        print_result('at least one success', results['atleast_one'], throws)
+        print_result('at least on pushed succes', results['atleast_one_pushed'], throws)
+        print_result('at least one damage to attribute', results['atleast_one_attr_botch'], throws)
+        print_result('at least one damage to gear', results['atleast_one_gear_botch'], throws)
+        print_result_list('Successes on first roll', results['successes'], throws)
+        print_result_list('Successes on pushed roll', results['pushed_successes'], throws)
+        print_result_list('Attribute damage', results['attribute_botched'], throws)
+        print_result_list('Gear damage', results['gear_botched'], throws)
+        logging.debug(results)
 
 if __name__ == "__main__":
     main()
