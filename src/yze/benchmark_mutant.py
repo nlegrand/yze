@@ -68,6 +68,15 @@ def multiple_throws(throws=10000, attribute=1, skill=0, gear=0):
                 results['gear_botched'][len(gear_botched)] += 1
     return results
 
+
+def complete_benchmark():
+    """In dev yet, will launch multiple multiple_throws so as to try
+    to have almost exhaustive benchmarks.
+
+    """
+    pass
+
+
 def main():
     """Fetch args from the commandline and proceed.
     """
@@ -80,19 +89,23 @@ def main():
     parser.add_argument('-a', '--attribute', default=1)
     parser.add_argument('-s', '--skill', default=0)
     parser.add_argument('-g', '--gear', default=0)
+    parser.add_argument('-c', '--complete', action='store_true')
 
     args = parser.parse_args()
 
-    results = multiple_throws(args.throws, args.attribute, args.skill, args.gear)
+    if args.complete:
+        pass
+    else:
+        results = multiple_throws(args.throws, args.attribute, args.skill, args.gear)
 
-    print (f'    at least one success : {results["atleast_one"]}')
-    print (f'    at least one pushed success : {results["atleast_one_pushed"]}')
-    print (f'    at least one damage to attribute : {results["atleast_one_attr_botch"]}')
-    print (f'    at least one damage to gear : {results["atleast_one_gear_botch"]}')
+        print (f'    at least one success : {results["atleast_one"]}')
+        print (f'    at least one pushed success : {results["atleast_one_pushed"]}')
+        print (f'    at least one damage to attribute : {results["atleast_one_attr_botch"]}')
+        print (f'    at least one damage to gear : {results["atleast_one_gear_botch"]}')
 
 
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(results)
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(results)
 
 if __name__ == "__main__":
     main()
