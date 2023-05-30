@@ -72,7 +72,7 @@ options:
   -g GEAR_DICE, --gear_dice GEAR_DICE
                         List your dice results eg: 32
 
-Experimental probabilities made with pseudo random numbers. Maybie it’s not the best you can get :).
+Experimental probabilities made with pseudo random numbers. Maybe it’s not the best you can get :).
 ```
 And here is an example:
 

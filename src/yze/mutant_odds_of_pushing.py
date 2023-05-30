@@ -79,7 +79,7 @@ def main():
                         description="""Once you get a result, what are your odds when pushing it?
                         feed this command your results and see what is likely or not to happen""",
                         epilog="""Experimental probabilities made with pseudo random numbers.
-                        Maybie it’s not the best you can get :).""")
+                        Maybe it’s not the best you can get :).""")
 
     parser.add_argument('-t', '--throws', default=100000)      # option that takes a value
     parser.add_argument('-a', '--attribute_dice',
