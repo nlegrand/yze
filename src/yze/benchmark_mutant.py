@@ -41,7 +41,7 @@ def multiple_throws(throws=10000, attribute=1, skill=0, gear=0):
         'gear_botched': {},
     }
     
-    print(f'Throwing dice pool (attribute: {attribute}, skill: {skill}, gear: {gear}) {throws} times !')
+    #print(f'Throwing dice pool (attribute: {attribute}, skill: {skill}, gear: {gear}) {throws} times !')
     for i in range(int(throws)):
         d = MutantDicePool(attr=int(attribute), skill=int(skill), gear=int(gear))
         res = d.throw()
@@ -88,12 +88,22 @@ def print_result(result_name, result, throws):
     """
     print (f'{result_name}: {result * 100 / throws} %')
 
-def print_result_list(result_list_name, result_list, throws):
+def print_result_list(throws):
     """Pretty print the full result list
     """
-    print(f'{result_list_name}:')
-    for key in sorted(result_list):
-        print(f'    chances to get {key}: {result_list[key] * 100 / throws} %')
+    attr = 1
+    skill = 0
+    gear = 0
+    while attr < 6:
+        while skill < 6:
+            while gear < 3:
+                results = multiple_throws(throws, attr, skill, gear)
+                print(f"{attr}\t{skill}\t{gear}\t{results['atleast_one'] * 100 / throws} %\t{results['atleast_one_pushed'] * 100 / throws} %")
+                gear += 1
+            skill += 1
+            gear = 0
+        attr += 1
+        skill = 0
 
 
 def main():
@@ -114,7 +124,7 @@ def main():
     throws = int(args.throws)
 
     if args.complete:
-        print("Complete benchmark not implemented yet, sorry!")
+        print_result_list(throws)
     else:
         results = multiple_throws(throws, args.attribute, args.skill, args.gear)
         print_result('at least one success', results['atleast_one'], throws)
