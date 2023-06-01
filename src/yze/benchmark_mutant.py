@@ -88,8 +88,17 @@ def print_result(result_name, result, throws):
     """
     print (f'{result_name}: {result * 100 / throws} %')
 
-def print_result_list(throws):
+
+def print_result_list(result_list_name, result_list, throws):
     """Pretty print the full result list
+    """
+    print(f'{result_list_name}:')
+    for key in sorted(result_list):
+        print(f'    chances to get {key}: {result_list[key] * 100 / throws} %')
+
+
+def print_complete_list(throws):
+    """Process and pretty print the complete result list
     """
     attr = 1
     skill = 0
@@ -124,7 +133,7 @@ def main():
     throws = int(args.throws)
 
     if args.complete:
-        print_result_list(throws)
+        print_complete_list(throws)
     else:
         results = multiple_throws(throws, args.attribute, args.skill, args.gear)
         print_result('at least one success', results['atleast_one'], throws)
