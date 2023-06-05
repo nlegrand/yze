@@ -20,6 +20,10 @@ League. I've made it just for fun.
 - [X] Alien
 - [X] Blade Runner
 
+# TODO
+
+- [ ] negative dice for MYZ and FBL
+
 # Example
 ```
 . my_py_venv/bin/activate
@@ -103,6 +107,8 @@ Running multiple times produce different odds, but in the same order.
 You can also benchmark dice throw to see what are your chances to get
 some successes or damage.
 
+## Simple command
+
 ```
 $ benchmark_mutant  -a 4 -s 2 -g 2
 Throwing dice pool (attribute: 4, skill: 2, gear: 2) 100000 times !
@@ -137,4 +143,19 @@ Gear damage:
     chances to get 2: 7.649 %
 
 ```
+
+## Complet out
+
+You can have a rather complete output giving you percentage of success
+after multiple rolls (default 100000). The table is rather long so I
+have abbreviated the column names : s. is for successes, p. for pushed
+and d. for damage. alo is for at least one.
+
+    benchmark_mutant -c
+    Attr	Skill	Gear	alo s.	alo p.	alo attr d.	alo gear d.	1 s.	2 s.	3 s.	4 s.	5 s.	6 s.	7 s.	8 s.	9 s.	10 s.	1 p. s.	2 p. s.	3 p. s.	4 p. s.	5 p. s.	6 p. s.	7 p. s.	8 p. s.	9 p. s.	10 p. s.	11 p. s.	12 p. s.	1 attr. d.	2 attr. d.	3 attr. d.	4 attr. d.	5 attr. d.	6 attr. d.	1 gear d.	2 gear d.	3 gear d.
+    1	0	0	16.558 %	27.713 %	27.841	0.0	16.558										27.713							27.841								
+    1	0	1	30.61 %	47.846 %	27.706	27.986	27.873	2.737									40.124	7.722							27.706						27.986		
+    1	0	2	42.249 %	62.391 %	27.79	47.626	34.762	7.005	0.482								43.587	16.637	2.167					27.79						39.853	7.773	
+
+
 

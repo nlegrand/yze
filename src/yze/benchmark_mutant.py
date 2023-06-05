@@ -97,9 +97,29 @@ def print_result_list(result_list_name, result_list, throws):
         print(f'    chances to get {key}: {result_list[key] * 100 / throws} %')
 
 
-def print_complete_list(throws):
-    """Process and pretty print the complete result list
+def percent_result(result, throws):
+    """Avoid repeating the same pattern all over
     """
+    return str(result * 100 / throws)
+
+def print_complete_list(throws):
+    """Process and pretty print the complete result list, all results
+    are percentage results. s. is for successes, p. for pushed and
+    d. for damage. alo is for at least one. s. is for successes, p. for pushed and
+    d. for damage. alo is for at least one.
+    """
+    header = "Attr\tSkill\tGear\talo s.\talo p."
+    header = header + "\talo attr d."
+    header = header + "\talo gear d."
+    for i in range(1, 11):
+        header = header + f"\t{i} s."
+    for i in range(1, 13):
+        header = header + f"\t{i} p. s."
+    for i in range(1, 7):
+        header = header + f"\t{i} attr. d."
+    for i in range(1, 4):
+        header = header + f"\t{i} gear d."
+    print(header)
     attr = 1
     skill = 0
     gear = 0
@@ -107,7 +127,26 @@ def print_complete_list(throws):
         while skill < 6:
             while gear < 3:
                 results = multiple_throws(throws, attr, skill, gear)
-                print(f"{attr}\t{skill}\t{gear}\t{results['atleast_one'] * 100 / throws} %\t{results['atleast_one_pushed'] * 100 / throws} %")
+                line = f"{attr}\t{skill}\t{gear}\t{results['atleast_one'] * 100 / throws} %\t{results['atleast_one_pushed'] * 100 / throws} %"
+                line = line + f"\t{percent_result(results['atleast_one_attr_botch'], throws)}"
+                line = line + f"\t{percent_result(results['atleast_one_gear_botch'], throws)}"
+                for i in range(1, 11):
+                    line = line + "\t"
+                    if i in results['successes']:
+                        line = line + percent_result(results['successes'][i], throws)
+                for i in range(1, 13):
+                    line = line + "\t"
+                    if i in results['pushed_successes']:
+                        line = line + percent_result(results['pushed_successes'][i], throws)
+                for i in range(1, 7):
+                    line = line + "\t"
+                    if i in results['attribute_botched']:
+                        line = line + percent_result(results['attribute_botched'][i], throws)
+                for i in range(1, 4):
+                    line = line + "\t"
+                    if i in results['gear_botched']:
+                        line = line + percent_result(results['gear_botched'][i], throws)
+                print(line)
                 gear += 1
             skill += 1
             gear = 0
