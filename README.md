@@ -156,6 +156,7 @@ and d. for damage. alo is for at least one.
     1	0	0	16.528 	27.636 	28.133	0.0	16.528										27.636									28.133								
     1	0	1	30.459 	47.757 	27.962	27.701	27.671	2.788									40.042	7.715								27.962						27.701
     1	0	2	42.234 	62.36 	27.735	47.801	34.803	6.949	0.482								43.256	17.042	2.062							27.735						40.079	7.722
-...
+    ...
 
-
+You can consult a version of this output on
+[github](https://github.com/nlegrand/yze/blob/main/files/mutant_complete_benchmark.tsv).
