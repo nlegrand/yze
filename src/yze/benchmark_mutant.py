@@ -127,7 +127,7 @@ def print_complete_list(throws):
         while skill < 6:
             while gear < 3:
                 results = multiple_throws(throws, attr, skill, gear)
-                line = f"{attr}\t{skill}\t{gear}\t{results['atleast_one'] * 100 / throws} %\t{results['atleast_one_pushed'] * 100 / throws} %"
+                line = f"{attr}\t{skill}\t{gear}\t{results['atleast_one'] * 100 / throws} \t{results['atleast_one_pushed'] * 100 / throws} "
                 line = line + f"\t{percent_result(results['atleast_one_attr_botch'], throws)}"
                 line = line + f"\t{percent_result(results['atleast_one_gear_botch'], throws)}"
                 for i in range(1, 11):
