@@ -144,7 +144,7 @@ Gear damage:
 
 ```
 
-## Complet out
+## Complete output
 
 You can have a rather complete output giving you percentage of success
 after multiple rolls (default 100000). The table is rather long so I
