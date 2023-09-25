@@ -1,5 +1,7 @@
-The main goal of this Python library is to propose an object to emulate
-Year Zero Engine dice throwing.
+The main goal of this Python library is to propose an object to
+emulate Year Zero Engine dice throwing. It also feature probability
+simulations to give you an idea of the chances you get to succeed or
+fail.
 
 # What is it about?
 
@@ -53,9 +55,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 {'pool': [1, 3, 6, 2], 'stress': [1, 1]}
 ```
 
-# Odds of pushing
+# Probability simulation: Odds of pushing
 
-Free League gives very general chances to get a succes when throwing
+Free League gives very general chances to get a succes when rolling
 and pushing a dice pool according to it’s size. But how can we get
 odds after the first roll is made? `mutant_odds_of_pushing` tries do
 do exactly that. Here is the doc:
@@ -103,8 +105,8 @@ Odds of having:
 
 Running multiple times produce different odds, but in the same order.
 
-# Benchmark
-You can also benchmark dice throw to see what are your chances to get
+# Probability simulation: Benchmark
+You can also benchmark dice rolls to see what are your chances to get
 some successes or damage.
 
 ## Simple command
@@ -144,7 +146,7 @@ Gear damage:
 
 ```
 
-## Complete output
+## Probability simulation: Complete output
 
 You can have a rather complete output giving you percentage of success
 after multiple rolls (default 100000). The table is rather long so I
